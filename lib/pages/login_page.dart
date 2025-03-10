@@ -14,6 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final _password = TextEditingController();
   final formkey = GlobalKey<FormState>();
   bool _isLogin = false;
+  bool _isObscure = true;
 
   void dispose() {
     _username.dispose();
@@ -58,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 TextFormField(
+                  obscureText: _isObscure,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'kosong bang';
@@ -65,9 +67,19 @@ class _LoginPageState extends State<LoginPage> {
                     return null;
                   },
                   controller: _password,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "password",
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure = !_isObscure;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(
